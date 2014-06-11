@@ -1,0 +1,5 @@
+SELECT p.idpedido,c.nombre,p.fecha,sum(c1.precio) as total, p.estado
+FROM (SELECT d.FK_PEDIDO as ped, d.cantidad*pr.pvp as precio from productos pr,DetallePedidos d WHERE pr.idproducto =d.FK_PRODUCTO)c1,clientes c,pedidos p
+WHERE c.IDCLIENTE=p.FK_CLIENTE and p.idpedido=c1.ped;
+
+SELECT nombre, dni, pais, email from clientes;

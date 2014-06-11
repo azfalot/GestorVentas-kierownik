@@ -1,0 +1,43 @@
+CREATE TABLE "Clientes" (
+"idCliente" INTEGER PRIMARY KEY AUTOINCREMENT, 
+"dni" VARCHAR NOT NULL  UNIQUE, 
+"nombre" VARCHAR NOT NULL, 
+"telefono" VARCHAR, 
+"direccion" VARCHAR
+);
+CREATE TABLE DetallePedidos
+(
+     	idDetallePedido INTEGER PRIMARY KEY AUTOINCREMENT,
+        fk_pedido INTEGER,
+        fk_producto INTEGER,
+        cantidad INTEGER, 
+	   estado INTEGER,
+     	FOREIGN KEY(fk_pedido) REFERENCES Pedidos(idPedido)
+	ON DELETE CASCADE,
+	FOREIGN KEY(fk_producto) REFERENCES Productos(idProducto)
+	ON DELETE CASCADE
+);
+CREATE TABLE Pedidos
+(
+     	idPedido INTEGER PRIMARY KEY AUTOINCREMENT,
+     	fecha  DATE,
+        fk_cliente INTEGER,
+     	FOREIGN KEY(fk_cliente) REFERENCES Clientes(idCliente)
+	ON DELETE CASCADE
+);
+CREATE TABLE Productos
+(
+     	idProducto INTEGER PRIMARY KEY AUTOINCREMENT,
+     	nombre VARCHAR NOT NULL,
+        pvp DOUBLE,
+        stock INTEGER,
+        fk_proveedor INTEGER,
+     	FOREIGN KEY(fk_proveedor) REFERENCES Proveedores(idProveedor)
+	ON DELETE CASCADE
+);
+CREATE TABLE "Proveedores" (
+"idProveedor" INTEGER PRIMARY KEY AUTOINCREMENT,
+ "nombre" VARCHAR,
+ "direccion" VARCHAR,
+ "pais" VARCHAR
+);
