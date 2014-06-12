@@ -7,7 +7,11 @@
 package GUI;
 
 import Metodos.Listas;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -190,6 +194,24 @@ public class AltaCliente extends javax.swing.JDialog {
         String dir = aTf4.getText();
         String email = aTf5.getText();
         String pais = jCbPaises.getSelectedItem().toString();
+        if(1==1){
+            JOptionPane.showMessageDialog(rootPane, "Datos Incompletos, debe rellenar todo el formulario");
+            System.out.println("Pasando por aqui");
+        }else{
+        try {
+            Main.conexion.update("INSERT INTO Clientes (idCliente,dni,nombre,pais,email,telefono,direccion)"+ 
+                    "VALUES ("+null+", '"+dni+"', '"+nombre+"', '"+pais+"', '"+email+"', "+phone+", '"+dir+"');");
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NumberFormatException ex){
+            JOptionPane.showConfirmDialog(rootPane, "hola");
+            JOptionPane.showMessageDialog(rootPane, ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        }
+        this.dispose();
+       
         
         
         
