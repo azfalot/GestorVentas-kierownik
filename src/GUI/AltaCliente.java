@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
 
 import Metodos.Listas;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -17,35 +14,41 @@ import javax.swing.JOptionPane;
  *
  * @author carlos
  */
-public class AltaCliente extends javax.swing.JDialog {
+public final class AltaCliente extends javax.swing.JDialog {
 
     //istancia de Listas
     Listas l = new Listas();
     //icono Cliente
-    ImageIcon icono = new ImageIcon("imagenes\\cliente.png"); 
-    
+    ImageIcon icono = new ImageIcon("imagenes\\cliente.png");
+    //Icono de la App
+    ImageIcon icon2 = new ImageIcon("imagenes\\icono.png");
+
     public AltaCliente(java.awt.Frame parent, boolean modal) {
+
         super(parent, modal);
         initComponents();
         // Icono cliente
         cliente.setIcon(icono);
+        //icono app
+        this.setIconImage(icon2.getImage());
         //Vaciando los Campos
-        aTf1.setText("");
-        aTf2.setText("");
-        aTf3.setText("");
-        aTf4.setText("");
+        aTf1.setText(null);
+        aTf2.setText(null);
+        aTf3.setText(null);
+        aTf4.setText(null);
+        aTf5.setText(null);
         setLocationRelativeTo(null);
         rellenarPaises();
-        
+
     }
-    
-    public void rellenarPaises(){
-        
-        for (int i=0;i<l.getPaises().length;i++){
-           String[] x = l.getPaises();
-           jCbPaises.addItem(x[i]);
+
+    public void rellenarPaises() {
+
+        for (int i = 0; i < l.getPaises().length; i++) {
+            String[] x = l.getPaises();
+            jCbPaises.addItem(x[i]);
         }
-        
+
     }
 
     /**
@@ -57,8 +60,6 @@ public class AltaCliente extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         aTf1 = new javax.swing.JTextField();
         aTf3 = new javax.swing.JTextField();
@@ -72,23 +73,13 @@ public class AltaCliente extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jCbPaises = new javax.swing.JComboBox();
         aTf5 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         cliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        setTitle("Nuevo Cliente");
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -114,11 +105,11 @@ public class AltaCliente extends javax.swing.JDialog {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 65, 41, -1));
 
         jLabel3.setText("Telefono:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 137, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jLabel4.setText("Direccion:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 166, -1, -1));
-        jPanel1.add(aTf4, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 163, 107, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        jPanel1.add(aTf4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 107, -1));
 
         jLabel5.setText("E-mail:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 88, -1, -1));
@@ -134,37 +125,39 @@ public class AltaCliente extends javax.swing.JDialog {
         jPanel1.add(jCbPaises, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 111, 107, -1));
         jPanel1.add(aTf5, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 85, 107, -1));
 
+        jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 103, 36));
+
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 220, 110, 36));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(cliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleDescription("");
+        getAccessibleContext().setAccessibleParent(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -183,38 +176,42 @@ public class AltaCliente extends javax.swing.JDialog {
         aTf2.setText("");
         aTf3.setText("");
         aTf4.setText("");
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Aqui verificamos que los datos son correctos y creamos un Insert
-        String nombre = aTf1.getText();
-        String dni= aTf2.getText();
-        int phone = Integer.parseInt(aTf3.getText());
-        String dir = aTf4.getText();
-        String email = aTf5.getText();
-        String pais = jCbPaises.getSelectedItem().toString();
-        if(1==1){
-            JOptionPane.showMessageDialog(rootPane, "Datos Incompletos, debe rellenar todo el formulario");
-            System.out.println("Pasando por aqui");
-        }else{
-        try {
-            Main.conexion.update("INSERT INTO Clientes (idCliente,dni,nombre,pais,email,telefono,direccion)"+ 
-                    "VALUES ("+null+", '"+dni+"', '"+nombre+"', '"+pais+"', '"+email+"', "+phone+", '"+dir+"');");
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(AltaCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (NumberFormatException ex){
-            JOptionPane.showConfirmDialog(rootPane, "hola");
-            JOptionPane.showMessageDialog(rootPane, ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        }
+        boolean x = false;
+        do {
+            try {
+                x = true;
+                // Aqui verificamos que los datos son correctos y creamos un Insert
+                String nombre = aTf1.getText();
+                String dni = aTf2.getText();
+                int phone = Integer.parseInt(aTf3.getText());
+                String dir = aTf4.getText();
+                String email = aTf5.getText();
+                String pais = jCbPaises.getSelectedItem().toString();
+
+                Main.conexion.update("INSERT INTO Clientes (idCliente,dni,nombre,pais,email,telefono,direccion)"
+                        + "VALUES (" + null + ", '" + dni + "', '" + nombre + "', '" + pais + "', '" + email + "', " + phone + ", '" + dir + "');");
+                
+            } catch (SQLException ex) {
+                x = false;
+                int eCode = ex.getErrorCode();
+                if (eCode == 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Ya existe ese DNI en la Base de Datos");
+                }
+            } catch (NumberFormatException ole) {
+                x = false;
+                JOptionPane.showMessageDialog(rootPane, "Debes Introducir un Numero de Telefono Valido");
+            }
+        } while (x = false);
+        if(x==true){
+            
         this.dispose();
-       
-        
-        
-        
+        JOptionPane.showMessageDialog(rootPane, "Cliente Creado Satisfactoriamente", "Completado", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCbPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbPaisesActionPerformed
@@ -224,8 +221,6 @@ public class AltaCliente extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField aTf1;

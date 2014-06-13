@@ -5,14 +5,14 @@
  */
 package GUI;
 
-import Metodos.Consultas;
+import Metodos.Selects;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class Pedidos extends javax.swing.JPanel {
     
-    Consultas c = new  Consultas();
+    Selects c = new  Selects();
 
     public Pedidos() throws SQLException {
         initComponents();

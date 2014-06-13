@@ -10,7 +10,7 @@ package Metodos;
  *
  * @author carlos
  */
-public class Consultas {
+public class Selects {
     
     /*
     Aqui iran todas las consultas que en algun momento se puedan ejecutar a 
@@ -21,7 +21,7 @@ public class Consultas {
    private final String rellenarPedidos;
    private final String rellenarClientes;
 
-    public Consultas() {
+    public Selects() {
         this.rellenarClientes = "SELECT nombre, dni, pais, email from clientes;";
         this.rellenarPedidos = "select p.IDPEDIDO,c.NOMBRE,p.FECHA,sum(A.precio) as total, p.ESTADO from\n"
                 + "(select d.FK_PEDIDO as ped, d.CANTIDAD*pr.pvp as precio from productos pr,DetallePedidos d where pr.IDPRODUCTO=d.FK_PRODUCTO)A,\n"
@@ -35,6 +35,13 @@ public class Consultas {
 
     public String getRellenarClientes() {
         return rellenarClientes;
+    }
+    
+    public String clientePorNombre(String n){
+        
+        String consulta = "SELECT nombre, dni, pais, email from clientes "+
+                "WHERE nombre='"+n+"';";
+        return consulta;
     }
     
     

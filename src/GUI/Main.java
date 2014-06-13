@@ -33,6 +33,7 @@ public class Main extends javax.swing.JFrame {
     //Icono de la App
     ImageIcon icono = new ImageIcon("imagenes\\icono.png");
 
+
     //Istancia Lista
     Listas mL = new Listas();
     ArrayList<String> listOP;
@@ -262,7 +263,12 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
-        System.exit(0);
+        try {
+            System.exit(0);
+            conexion.getConnection().close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_miSalirActionPerformed
 
     private void cBmi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBmi3ActionPerformed
@@ -443,6 +449,7 @@ public class Main extends javax.swing.JFrame {
 
     public static void main(String args[]) throws ClassNotFoundException, SQLException {
 
+        new Thread(new Splash()).start();
         // Creando conexion SQL 
         //Sqlite condb = new Sqlite();
         try {
@@ -466,7 +473,7 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                //new Main().setVisible(true);
             }
         });
     }
