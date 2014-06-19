@@ -24,7 +24,7 @@ public final class Main extends javax.swing.JFrame {
 
     //Conexion
     static Sqlite conexion = Sqlite.getInstance();
-    
+
     //Indice para las pestañas del TabbedPane
     static int indice = -1;
 
@@ -41,12 +41,11 @@ public final class Main extends javax.swing.JFrame {
     ImageIcon cfg = new ImageIcon("imagenes\\cfg.png");
     ImageIcon acc = new ImageIcon("imagenes\\books.png");
 
-
     //Istancia Lista
     Listas mL = new Listas();
     ArrayList<String> listOP;
 
-    ResourceBundle res = getBundle("Lenguaje.Idioma", new Locale("es"));
+    static ResourceBundle res = getBundle("Lenguaje.Idioma", new Locale("es"));
 
     public Main() {
 
@@ -58,27 +57,33 @@ public final class Main extends javax.swing.JFrame {
         jtpPestañas.setComponentPopupMenu(null);
         misIconos();
     }
-    public void misIconos(){
+
+    public void misIconos() {
         btnAlmacen.setIcon(stock);
         btnCompras.setIcon(buy);
         btnConfiguracion.setIcon(cfg);
         btnContabilidad.setIcon(acc);
         btnVentas.setIcon(sell);
     }
+
     //Metodos para cambiar de idioma
-    public void aEspañol(){
-      res = getBundle("Lenguaje.Idioma", new Locale("es"));
+    public void aEspañol() {
+        res = getBundle("Lenguaje.Idioma", new Locale("es"));
         cargarIdioma();
     }
-    public void toEnglish(){
-      res = getBundle("Lenguaje.Idioma", Locale.ENGLISH);
+
+    public void toEnglish() {
+        res = getBundle("Lenguaje.Idioma", Locale.ENGLISH);
         cargarIdioma();
     }
-    public void doPolski(){
-      res = getBundle("Lenguaje.Idioma", new Locale("PL"));
+
+    public void doPolski() {
+        res = getBundle("Lenguaje.Idioma", new Locale("PL"));
         cargarIdioma();
     }
-    public void cargarIdioma(){
+
+    public void cargarIdioma() {
+        miSalir.setText(res.getString("SALIR"));
         menuAcerca.setText(res.getString("ACERCA DE.."));
         menuArchivo.setText(res.getString("ARCHIVO"));
         menuAyuda.setText(res.getString("AYUDA"));
@@ -95,16 +100,18 @@ public final class Main extends javax.swing.JFrame {
         btnConfiguracion.setText(res.getString("CONFIGURACION"));
         btnContabilidad.setText(res.getString("CONTABILIDAD"));
         btnVentas.setText(res.getString("VENTAS"));
+        cerrarPestaña.setText(res.getString("CERRAR PESTAÑA"));
+        cerrarTodas.setText(res.getString("CERRAR TODAS LAS PESTAÑAS"));
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         grupoMenuBar = new javax.swing.ButtonGroup();
         menuPestañas = new javax.swing.JPopupMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        cerrarPestaña = new javax.swing.JMenuItem();
+        cerrarTodas = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         btnVentas = new javax.swing.JButton();
@@ -130,21 +137,21 @@ public final class Main extends javax.swing.JFrame {
         menuLicencia = new javax.swing.JMenuItem();
         menuAcerca = new javax.swing.JMenuItem();
 
-        jMenuItem5.setText("Cerrar Pestaña");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        cerrarPestaña.setText("Cerrar Pestaña");
+        cerrarPestaña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                cerrarPestañaActionPerformed(evt);
             }
         });
-        menuPestañas.add(jMenuItem5);
+        menuPestañas.add(cerrarPestaña);
 
-        jMenuItem6.setText("Cerrar todas las pestañas");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        cerrarTodas.setText("Cerrar todas las pestañas");
+        cerrarTodas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                cerrarTodasActionPerformed(evt);
             }
         });
-        menuPestañas.add(jMenuItem6);
+        menuPestañas.add(cerrarTodas);
 
         jToolBar1.setRollover(true);
 
@@ -226,7 +233,7 @@ public final class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                     .addComponent(jtpPestañas))
                 .addContainerGap())
         );
@@ -323,7 +330,7 @@ public final class Main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -349,7 +356,7 @@ public final class Main extends javax.swing.JFrame {
         btnVentas.setText(null);
         btnContabilidad.setText(null);
         misIconos();
-        
+
     }//GEN-LAST:event_soloIconActionPerformed
 
     private void menuManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManualActionPerformed
@@ -357,8 +364,8 @@ public final class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_menuManualActionPerformed
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
-       //
-        doPolski();
+        Configuracion cfg = new Configuracion(this, true);
+        cfg.setVisible(true);
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
@@ -438,10 +445,10 @@ public final class Main extends javax.swing.JFrame {
                     case 0:
                         try {
                             //lanzar ventana pedidos 
-                            jtpPestañas.addTab("Pedidos", new Pedidos());
+                            jtpPestañas.addTab(res.getString("PEDIDOS"), new Pedidos());
                             indice++;
                             jtpPestañas.setSelectedIndex(indice);
-                            
+
                         } catch (SQLException ex) {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -449,7 +456,7 @@ public final class Main extends javax.swing.JFrame {
                     case 1:
                         try {
                             // lanzar ventana cartera de clientes
-                            jtpPestañas.addTab("Clientes", new Clientes());
+                            jtpPestañas.addTab(res.getString("CLIENTES"), new Clientes());
                             indice++;
                             jtpPestañas.setSelectedIndex(indice);
                         } catch (SQLException ex) {
@@ -457,7 +464,7 @@ public final class Main extends javax.swing.JFrame {
                         }
                         break;
                     case 2:// lanzar ventana tarifas
-                        
+
                         break;
                 }
             }
@@ -467,9 +474,17 @@ public final class Main extends javax.swing.JFrame {
                 int posicion = jlOpciones.getSelectedIndex();
 
                 switch (posicion) {
+                    //Lanzar ventana Compras
                     case 0:
+                        jtpPestañas.addTab(res.getString("COMPRAS"), new Compras());
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
                         break;
+                    //Lanzar ventana proveedores
                     case 1:
+                        jtpPestañas.addTab(res.getString("PROVEEDORES"), new Proveedores());
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
                         break;
                     case 2:
                         break;
@@ -481,9 +496,17 @@ public final class Main extends javax.swing.JFrame {
                 int posicion = jlOpciones.getSelectedIndex();
 
                 switch (posicion) {
+                    //Lanzar Productos
                     case 0:
+                        jtpPestañas.addTab(res.getString("PRODUCTOS"), new Productos());
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
                         break;
+                    //Lanzar Movimientos
                     case 1:
+                        jtpPestañas.addTab(res.getString("MOVIMIENTOS"), new Movimientos());
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
                         break;
                     case 2:
                         break;
@@ -508,13 +531,13 @@ public final class Main extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jlOpcionesValueChanged
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void cerrarPestañaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarPestañaActionPerformed
         // Cerrar pestaña actual
         if (jtpPestañas.getSelectedIndex() == 0) {
 
             jtpPestañas.remove(jtpPestañas.getSelectedIndex());
-            
-            jtpPestañas.setComponentPopupMenu(null);
+
+            //jtpPestañas.setComponentPopupMenu(null);
             indice--;
 
         } else if (jtpPestañas.getSelectedIndex() >= 1) {
@@ -524,26 +547,26 @@ public final class Main extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_cerrarPestañaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void cerrarTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarTodasActionPerformed
         // Cerrar todas las Pestañas
         jtpPestañas.removeAll();
         jtpPestañas.setComponentPopupMenu(null);
-        indice=-1;
+        indice = -1;
 
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_cerrarTodasActionPerformed
 
     private void twistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twistActionPerformed
         // TEXTO E ICONOS
         //btnVentas.setIcon("");
         misIconos();
-        btnAlmacen.setText("Almacen");
-        btnCompras.setText("Compras");
-        btnConfiguracion.setText("Configuracion");
-        btnContabilidad.setText("Contabilidad");
-        btnVentas.setText("Ventas");
-        
+        btnAlmacen.setText(res.getString("ALMACEN"));
+        btnCompras.setText(res.getString("COMPRAS"));
+        btnConfiguracion.setText(res.getString("CONFIGURACION"));
+        btnContabilidad.setText(res.getString("CONTABILIDAD"));
+        btnVentas.setText(res.getString("VENTAS"));
+
     }//GEN-LAST:event_twistActionPerformed
 
     private void solotextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solotextActionPerformed
@@ -553,11 +576,11 @@ public final class Main extends javax.swing.JFrame {
         btnConfiguracion.setIcon(null);
         btnContabilidad.setIcon(null);
         btnVentas.setIcon(null);
-        btnAlmacen.setText("Almacen");
-        btnCompras.setText("Compras");
-        btnConfiguracion.setText("Configuracion");
-        btnContabilidad.setText("Contabilidad");
-        btnVentas.setText("Ventas");
+        btnAlmacen.setText(res.getString("ALMACEN"));
+        btnCompras.setText(res.getString("COMPRAS"));
+        btnConfiguracion.setText(res.getString("CONFIGURACION"));
+        btnContabilidad.setText(res.getString("CONTABILIDAD"));
+        btnVentas.setText(res.getString("VENTAS"));
     }//GEN-LAST:event_solotextActionPerformed
 
     private void menuCfgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCfgActionPerformed
@@ -602,10 +625,10 @@ public final class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnConfiguracion;
     private javax.swing.JButton btnContabilidad;
     private javax.swing.JButton btnVentas;
+    private javax.swing.JMenuItem cerrarPestaña;
+    private javax.swing.JMenuItem cerrarTodas;
     private javax.swing.ButtonGroup grupoMenuBar;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
