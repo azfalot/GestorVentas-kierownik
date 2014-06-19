@@ -51,7 +51,7 @@ public class Splash extends javax.swing.JFrame implements Runnable{
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
 
         jLabel1.setBackground(new java.awt.Color(0, 51, 153));

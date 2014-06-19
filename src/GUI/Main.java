@@ -20,18 +20,26 @@ import javax.swing.ImageIcon;
  *
  * @author carlos
  */
-public class Main extends javax.swing.JFrame {
+public final class Main extends javax.swing.JFrame {
 
     //Conexion
     static Sqlite conexion = Sqlite.getInstance();
+    
+    //Indice para las pestañas del TabbedPane
+    static int indice = -1;
 
     //Variable Global para tipo de Listado
     static int kList = 0;
 
     //Instanciando Dialogs para trabajar con ellas en el Frame Principal
     AltaCliente altaC = new AltaCliente(this, true);
-    //Icono de la App
+    //Iconos de la App
     ImageIcon icono = new ImageIcon("imagenes\\icono.png");
+    ImageIcon stock = new ImageIcon("imagenes\\stock.png");
+    ImageIcon buy = new ImageIcon("imagenes\\buy.png");
+    ImageIcon sell = new ImageIcon("imagenes\\sell.png");
+    ImageIcon cfg = new ImageIcon("imagenes\\cfg.png");
+    ImageIcon acc = new ImageIcon("imagenes\\books.png");
 
 
     //Istancia Lista
@@ -44,11 +52,51 @@ public class Main extends javax.swing.JFrame {
 
         initComponents();
         this.setIconImage(icono.getImage());
+        this.setSize(900, 450);
         this.setLocationRelativeTo(null);
         listOP = mL.getAl();
         jtpPestañas.setComponentPopupMenu(null);
+        misIconos();
     }
-
+    public void misIconos(){
+        btnAlmacen.setIcon(stock);
+        btnCompras.setIcon(buy);
+        btnConfiguracion.setIcon(cfg);
+        btnContabilidad.setIcon(acc);
+        btnVentas.setIcon(sell);
+    }
+    //Metodos para cambiar de idioma
+    public void aEspañol(){
+      res = getBundle("Lenguaje.Idioma", new Locale("es"));
+        cargarIdioma();
+    }
+    public void toEnglish(){
+      res = getBundle("Lenguaje.Idioma", Locale.ENGLISH);
+        cargarIdioma();
+    }
+    public void doPolski(){
+      res = getBundle("Lenguaje.Idioma", new Locale("PL"));
+        cargarIdioma();
+    }
+    public void cargarIdioma(){
+        menuAcerca.setText(res.getString("ACERCA DE.."));
+        menuArchivo.setText(res.getString("ARCHIVO"));
+        menuAyuda.setText(res.getString("AYUDA"));
+        twist.setText(res.getString("TEXTO & ICONOS"));
+        soloIcon.setText(res.getString("SOLO ICONOS"));
+        solotext.setText(res.getString("SOLO TEXTO"));
+        barMenu.setText(res.getString("BARRA DE MENÚ"));
+        menuCfg.setText(res.getString("CONFIGURACION"));
+        menuLicencia.setText(res.getString("LICENCIA"));
+        menuManual.setText(res.getString("MANUAL DE USUARIO"));
+        menuOpciones.setText(res.getString("OPCIONES"));
+        btnAlmacen.setText(res.getString("ALMACEN"));
+        btnCompras.setText(res.getString("COMPRAS"));
+        btnConfiguracion.setText(res.getString("CONFIGURACION"));
+        btnContabilidad.setText(res.getString("CONTABILIDAD"));
+        btnVentas.setText(res.getString("VENTAS"));
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,30 +105,30 @@ public class Main extends javax.swing.JFrame {
         menuPestañas = new javax.swing.JPopupMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
+        btnCompras = new javax.swing.JButton();
+        btnAlmacen = new javax.swing.JButton();
+        btnContabilidad = new javax.swing.JButton();
+        btnConfiguracion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jtpPestañas = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jlOpciones = new javax.swing.JList();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuArchivo = new javax.swing.JMenu();
         miSalir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        cBmi1 = new javax.swing.JCheckBoxMenuItem();
-        cBmi2 = new javax.swing.JCheckBoxMenuItem();
-        cBmi3 = new javax.swing.JCheckBoxMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuOpciones = new javax.swing.JMenu();
+        barMenu = new javax.swing.JMenu();
+        twist = new javax.swing.JCheckBoxMenuItem();
+        solotext = new javax.swing.JCheckBoxMenuItem();
+        soloIcon = new javax.swing.JCheckBoxMenuItem();
+        menuCfg = new javax.swing.JMenuItem();
+        menuAyuda = new javax.swing.JMenu();
+        menuManual = new javax.swing.JMenuItem();
+        menuLicencia = new javax.swing.JMenuItem();
+        menuAcerca = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("Cerrar Pestaña");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +146,8 @@ public class Main extends javax.swing.JFrame {
         });
         menuPestañas.add(jMenuItem6);
 
+        jToolBar1.setRollover(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kierownik");
         setBackground(new java.awt.Color(0, 204, 51));
@@ -107,49 +157,55 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton4.setText("Ventas");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnVentas.setBackground(new java.awt.Color(153, 153, 153));
+        btnVentas.setText("Ventas");
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnVentasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
+        jPanel1.add(btnVentas);
 
-        jButton5.setText("Compras");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnCompras.setBackground(new java.awt.Color(153, 153, 153));
+        btnCompras.setText("Compras");
+        btnCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnComprasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5);
+        jPanel1.add(btnCompras);
 
-        jButton6.setText("Almacen");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnAlmacen.setBackground(new java.awt.Color(153, 153, 153));
+        btnAlmacen.setText("Almacen");
+        btnAlmacen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnAlmacenActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6);
+        jPanel1.add(btnAlmacen);
 
-        jButton7.setText("Contabilidad");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnContabilidad.setBackground(new java.awt.Color(153, 153, 153));
+        btnContabilidad.setText("Contabilidad");
+        btnContabilidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnContabilidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7);
+        jPanel1.add(btnContabilidad);
 
-        jButton8.setText("Configuracion");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnConfiguracion.setBackground(new java.awt.Color(153, 153, 153));
+        btnConfiguracion.setText("Configuracion");
+        btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnConfiguracionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8);
+        jPanel1.add(btnConfiguracion);
 
-        jtpPestañas.setBackground(new java.awt.Color(0, 102, 102));
+        jtpPestañas.setBackground(new java.awt.Color(102, 102, 102));
         jtpPestañas.setComponentPopupMenu(menuPestañas);
 
+        jlOpciones.setBackground(new java.awt.Color(204, 204, 204));
         jlOpciones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jlOpcionesValueChanged(evt);
@@ -164,18 +220,20 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtpPestañas, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
+                .addComponent(jtpPestañas))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                     .addComponent(jtpPestañas))
                 .addContainerGap())
         );
 
-        jMenu1.setText("Archivo");
+        jMenuBar1.setBackground(new java.awt.Color(153, 153, 153));
+
+        menuArchivo.setText("Archivo");
 
         miSalir.setText("Salir");
         miSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -183,59 +241,71 @@ public class Main extends javax.swing.JFrame {
                 miSalirActionPerformed(evt);
             }
         });
-        jMenu1.add(miSalir);
+        menuArchivo.add(miSalir);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuArchivo);
 
-        jMenu2.setText("Usuario");
-        jMenuBar1.add(jMenu2);
+        menuOpciones.setText("Opciones");
 
-        jMenu3.setText("Opciones");
+        barMenu.setText("Barra de Menú");
 
-        jMenu5.setText("Barra de Menú");
-
-        grupoMenuBar.add(cBmi1);
-        cBmi1.setSelected(true);
-        cBmi1.setText("Texto & Iconos");
-        jMenu5.add(cBmi1);
-
-        grupoMenuBar.add(cBmi2);
-        cBmi2.setText("Solo Texto");
-        jMenu5.add(cBmi2);
-
-        grupoMenuBar.add(cBmi3);
-        cBmi3.setText("Solo Iconos");
-        cBmi3.addActionListener(new java.awt.event.ActionListener() {
+        grupoMenuBar.add(twist);
+        twist.setSelected(true);
+        twist.setText("Texto & Iconos");
+        twist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cBmi3ActionPerformed(evt);
+                twistActionPerformed(evt);
             }
         });
-        jMenu5.add(cBmi3);
+        barMenu.add(twist);
 
-        jMenu3.add(jMenu5);
-
-        jMenuItem1.setText("Configuracion");
-        jMenu3.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("Ayuda");
-
-        jMenuItem4.setText("Manual de Usuario");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        grupoMenuBar.add(solotext);
+        solotext.setText("Solo Texto");
+        solotext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                solotextActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem4);
+        barMenu.add(solotext);
 
-        jMenuItem3.setText("Licencia");
-        jMenu4.add(jMenuItem3);
+        grupoMenuBar.add(soloIcon);
+        soloIcon.setText("Solo Iconos");
+        soloIcon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soloIconActionPerformed(evt);
+            }
+        });
+        barMenu.add(soloIcon);
 
-        jMenuItem2.setText("Acerca de..");
-        jMenu4.add(jMenuItem2);
+        menuOpciones.add(barMenu);
 
-        jMenuBar1.add(jMenu4);
+        menuCfg.setText("Configuracion");
+        menuCfg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCfgActionPerformed(evt);
+            }
+        });
+        menuOpciones.add(menuCfg);
+
+        jMenuBar1.add(menuOpciones);
+
+        menuAyuda.setText("Ayuda");
+
+        menuManual.setText("Manual de Usuario");
+        menuManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuManualActionPerformed(evt);
+            }
+        });
+        menuAyuda.add(menuManual);
+
+        menuLicencia.setText("Licencia");
+        menuAyuda.add(menuLicencia);
+
+        menuAcerca.setText("Acerca de..");
+        menuAyuda.add(menuAcerca);
+
+        jMenuBar1.add(menuAyuda);
 
         setJMenuBar(jMenuBar1);
 
@@ -246,8 +316,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -271,19 +341,27 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_miSalirActionPerformed
 
-    private void cBmi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBmi3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cBmi3ActionPerformed
+    private void soloIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soloIconActionPerformed
+        // SOLO ICONOS
+        btnAlmacen.setText(null);
+        btnCompras.setText(null);
+        btnConfiguracion.setText(null);
+        btnVentas.setText(null);
+        btnContabilidad.setText(null);
+        misIconos();
+        
+    }//GEN-LAST:event_soloIconActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuManualActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+       //
+        doPolski();
+    }//GEN-LAST:event_btnConfiguracionActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         //Borramos lo que haya en la lista
         jlOpciones.removeAll();
         //Variable global pasa a ser 1 = a Ventas
@@ -297,9 +375,9 @@ public class Main extends javax.swing.JFrame {
         mL.borrarLista();
 
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnVentasActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
         //Borramos lo que haya en la lista
         jlOpciones.removeAll();
         //Variable global pasa a ser 2 = a Compras
@@ -311,9 +389,9 @@ public class Main extends javax.swing.JFrame {
         jlOpciones.setListData(array);
         //para evitar copias extra del listado
         mL.borrarLista();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnComprasActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlmacenActionPerformed
         //Borramos lo que haya en la lista
         jlOpciones.removeAll();
         //Variable global pasa a ser 3 = a Almacen
@@ -325,9 +403,9 @@ public class Main extends javax.swing.JFrame {
         jlOpciones.setListData(array);
         //para evitar copias extra del listado
         mL.borrarLista();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnAlmacenActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnContabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContabilidadActionPerformed
         //Borramos lo que haya en la lista
         jlOpciones.removeAll();
         //Variable global pasa a ser 4 = a Contabilidad
@@ -339,7 +417,7 @@ public class Main extends javax.swing.JFrame {
         jlOpciones.setListData(array);
         //para evitar copias extra del listado
         mL.borrarLista();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnContabilidadActionPerformed
 
     private void jlOpcionesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlOpcionesValueChanged
 
@@ -361,6 +439,9 @@ public class Main extends javax.swing.JFrame {
                         try {
                             //lanzar ventana pedidos 
                             jtpPestañas.addTab("Pedidos", new Pedidos());
+                            indice++;
+                            jtpPestañas.setSelectedIndex(indice);
+                            
                         } catch (SQLException ex) {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -369,6 +450,8 @@ public class Main extends javax.swing.JFrame {
                         try {
                             // lanzar ventana cartera de clientes
                             jtpPestañas.addTab("Clientes", new Clientes());
+                            indice++;
+                            jtpPestañas.setSelectedIndex(indice);
                         } catch (SQLException ex) {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -430,11 +513,14 @@ public class Main extends javax.swing.JFrame {
         if (jtpPestañas.getSelectedIndex() == 0) {
 
             jtpPestañas.remove(jtpPestañas.getSelectedIndex());
+            
             jtpPestañas.setComponentPopupMenu(null);
+            indice--;
 
         } else if (jtpPestañas.getSelectedIndex() >= 1) {
 
             jtpPestañas.remove(jtpPestañas.getSelectedIndex());
+            indice--;
 
         }
 
@@ -444,8 +530,39 @@ public class Main extends javax.swing.JFrame {
         // Cerrar todas las Pestañas
         jtpPestañas.removeAll();
         jtpPestañas.setComponentPopupMenu(null);
+        indice=-1;
 
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void twistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twistActionPerformed
+        // TEXTO E ICONOS
+        //btnVentas.setIcon("");
+        misIconos();
+        btnAlmacen.setText("Almacen");
+        btnCompras.setText("Compras");
+        btnConfiguracion.setText("Configuracion");
+        btnContabilidad.setText("Contabilidad");
+        btnVentas.setText("Ventas");
+        
+    }//GEN-LAST:event_twistActionPerformed
+
+    private void solotextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solotextActionPerformed
+        //Solo TEXTO
+        btnAlmacen.setIcon(null);
+        btnCompras.setIcon(null);
+        btnConfiguracion.setIcon(null);
+        btnContabilidad.setIcon(null);
+        btnVentas.setIcon(null);
+        btnAlmacen.setText("Almacen");
+        btnCompras.setText("Compras");
+        btnConfiguracion.setText("Configuracion");
+        btnContabilidad.setText("Contabilidad");
+        btnVentas.setText("Ventas");
+    }//GEN-LAST:event_solotextActionPerformed
+
+    private void menuCfgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCfgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCfgActionPerformed
 
     public static void main(String args[]) throws ClassNotFoundException, SQLException {
 
@@ -479,33 +596,33 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBoxMenuItem cBmi1;
-    private javax.swing.JCheckBoxMenuItem cBmi2;
-    private javax.swing.JCheckBoxMenuItem cBmi3;
+    private javax.swing.JMenu barMenu;
+    private javax.swing.JButton btnAlmacen;
+    private javax.swing.JButton btnCompras;
+    private javax.swing.JButton btnConfiguracion;
+    private javax.swing.JButton btnContabilidad;
+    private javax.swing.JButton btnVentas;
     private javax.swing.ButtonGroup grupoMenuBar;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList jlOpciones;
     private javax.swing.JTabbedPane jtpPestañas;
+    private javax.swing.JMenuItem menuAcerca;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenu menuAyuda;
+    private javax.swing.JMenuItem menuCfg;
+    private javax.swing.JMenuItem menuLicencia;
+    private javax.swing.JMenuItem menuManual;
+    private javax.swing.JMenu menuOpciones;
     private javax.swing.JPopupMenu menuPestañas;
     private javax.swing.JMenuItem miSalir;
+    private javax.swing.JCheckBoxMenuItem soloIcon;
+    private javax.swing.JCheckBoxMenuItem solotext;
+    private javax.swing.JCheckBoxMenuItem twist;
     // End of variables declaration//GEN-END:variables
 }
