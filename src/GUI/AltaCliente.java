@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Metodos.Inserts;
 import Metodos.Listas;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
@@ -22,6 +23,8 @@ public final class AltaCliente extends javax.swing.JDialog {
     ImageIcon icono = new ImageIcon("imagenes\\cliente.png");
     //Icono de la App
     ImageIcon icon2 = new ImageIcon("imagenes\\icono.png");
+    
+    Inserts i = new Inserts();
 
     public AltaCliente(java.awt.Frame parent, boolean modal) {
 
@@ -125,6 +128,7 @@ public final class AltaCliente extends javax.swing.JDialog {
         jPanel1.add(jCbPaises, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 111, 107, -1));
         jPanel1.add(aTf5, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 85, 107, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tick.png"))); // NOI18N
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +137,7 @@ public final class AltaCliente extends javax.swing.JDialog {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 103, 36));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cross.png"))); // NOI18N
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +153,7 @@ public final class AltaCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,8 +197,7 @@ public final class AltaCliente extends javax.swing.JDialog {
                 String email = aTf5.getText();
                 String pais = jCbPaises.getSelectedItem().toString();
 
-                Main.conexion.update("INSERT INTO Clientes (idCliente,dni,nombre,pais,email,telefono,direccion)"
-                        + "VALUES (" + null + ", '" + dni + "', '" + nombre + "', '" + pais + "', '" + email + "', " + phone + ", '" + dir + "');");
+                Main.conexion.update(i.nuevoCliente(dni, nombre, pais, email, phone, dir));
                 
             } catch (SQLException ex) {
                 x = false;
@@ -206,12 +210,11 @@ public final class AltaCliente extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Debes Introducir un Numero de Telefono Valido");
             }
         } while (x = false);
-        if(x==true){
+        if(x=true){
             
-        this.dispose();
         JOptionPane.showMessageDialog(rootPane, "Cliente Creado Satisfactoriamente", "Completado", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCbPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbPaisesActionPerformed

@@ -1,0 +1,64 @@
+DROP TABLE IF EXISTS "Clientes";
+CREATE TABLE "Clientes" (
+"idCliente" INTEGER PRIMARY KEY AUTOINCREMENT, 
+"dni" VARCHAR NOT NULL  UNIQUE, 
+"nombre" VARCHAR NOT NULL,
+ "pais" VARCHAR,
+ "email" VARCHAR,
+"telefono" VARCHAR, 
+"direccion" VARCHAR);
+INSERT INTO "Clientes" VALUES(1,'72355163S','Michel','USA','polike95@gestor.pl','9244889489498','C/ test');
+INSERT INTO "Clientes" VALUES(2,'72355723P','Javier','Argentina','kuhtlo_12@gestor.pl','+25 625147889','C/ test');
+INSERT INTO "Clientes" VALUES(3,'32146527L','Santiago','España','ceoZip@gestor.es','+34 625031479','C/ test');
+INSERT INTO "Clientes" VALUES(4,'72185147S','Paula','Spain','paulaberrocal29@hotmaio.es','666162666','C/ la Sierra');
+INSERT INTO "Clientes" VALUES(5,'qweqwe984','Camino Bausela','España','kmino29@gmail.paula','62534715','c/ Burgos');
+INSERT INTO "Clientes" VALUES(6,'x5855211D','Carlos','Colombia','Cotero91@hotmail.es','676095455','C/ ni idea');
+INSERT INTO "Clientes" VALUES(7,'9842984','Magda Uchman','Poland','magda@zoom.pl','681981','poland');
+INSERT INTO "Clientes" VALUES(8,'721435J','Jose','Algeria','','696884752','');
+INSERT INTO "Clientes" VALUES(9,'81984984','Lucia','Antigua and Barbuda','op','673095455','');
+INSERT INTO "Clientes" VALUES(10,'78295452','Alex','Gabon','','3214568','');
+DROP TABLE IF EXISTS "DetallePedidos";
+CREATE TABLE "DetallePedidos" (
+"idDetallePedido" INTEGER PRIMARY KEY ,
+"fk_pedido" INTEGER,
+"fk_producto" INTEGER,
+"cantidad" INTEGER,
+FOREIGN KEY(fk_pedido) REFERENCES Pedidos(idPedido)
+ON DELETE CASCADE,
+FOREIGN KEY(fk_producto) REFERENCES Productos(idProducto)
+ON DELETE CASCADE);
+DROP TABLE IF EXISTS "Pedidos";
+CREATE TABLE Pedidos
+(
+     	idPedido INTEGER PRIMARY KEY AUTOINCREMENT,
+     	fecha  DATETIME DEFAULT (CURRENT_DATE),
+        fk_cliente INTEGER,
+        estado VARCHAR,
+     	FOREIGN KEY(fk_cliente) REFERENCES Clientes(idCliente)
+	ON DELETE CASCADE
+);
+DROP TABLE IF EXISTS "Productos";
+CREATE TABLE Productos
+(
+     	idProducto INTEGER PRIMARY KEY AUTOINCREMENT,
+     	nombre VARCHAR NOT NULL,
+        pvp DOUBLE,
+        stock INTEGER,
+        fk_proveedor INTEGER,
+     	FOREIGN KEY(fk_proveedor) REFERENCES Proveedores(idProveedor)
+	ON DELETE CASCADE
+);
+INSERT INTO "Productos" VALUES(1,'Toshiba STOR.E Basics 2.5" 1TB USB 3.0',50.59,40,1);
+INSERT INTO "Productos" VALUES(2,'Asus Crosshair V Formula-Z',204.2,15,1);
+INSERT INTO "Productos" VALUES(3,'Intel Xeon E5-2630 V2 2.6 Ghz',450,10,1);
+INSERT INTO "Productos" VALUES(4,'Kingston Hyperx Beast Ddr3 2400 Pc3-19200 16gb Kingston Hyperx Beast Ddr3 2400 Pc3-19200 16gb 4x4gb Cl11',75,35,1);
+INSERT INTO "Productos" VALUES(5,'Cascos Beats color Aguacate',5,20,1);
+INSERT INTO "Productos" VALUES(6,'Zapatos Convers',10,15,1);
+DROP TABLE IF EXISTS "Proveedores";
+CREATE TABLE "Proveedores" (
+"idProveedor" INTEGER PRIMARY KEY AUTOINCREMENT,
+ "nombre" VARCHAR,
+ "direccion" VARCHAR,
+ "pais" VARCHAR
+);
+INSERT INTO "Proveedores" VALUES(1,'提供者','Guangzhou','China');

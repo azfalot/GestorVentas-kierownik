@@ -5,7 +5,9 @@
  */
 package Metodos;
 
+import GUI.Main;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -14,7 +16,6 @@ import java.util.ArrayList;
 public class Listas {
     
     private ArrayList<String> al = new ArrayList<>();
-    
     public ArrayList<String> getAl() {
         return al;
     }
@@ -25,28 +26,31 @@ public class Listas {
 
     //Rellenar Lista relacionada con las "Ventas"
     public void tipo1() {
-        al.add("Pedidos");
-        al.add("Cartera de Clientes");
-        al.add("Tarifas");
+        ResourceBundle res = Main.getRes();
+        al.add(res.getString("PEDIDOS"));
+        al.add(res.getString("CLIENTES"));
     }
 
     //Rellenar Lista relacionada con las "Compras"
     public  void tipo2() {
-        al.add("Compras");
-        al.add("Proveedores");
+        ResourceBundle res = Main.getRes();
+        al.add(res.getString("COMPRAS"));
+        al.add(res.getString("PROVEEDORES"));
     }
 
     //Rellenar Lista relacionada con las "Almacen"
     public  void tipo3() {
-       al.add("Productos");
-       al.add("Movimientos");
+        ResourceBundle res = Main.getRes();
+       al.add(res.getString("PRODUCTOS"));
+       al.add(res.getString("MOVIMIENTOS"));
         
     }
 
     //Rellenar Lista relacionada con las "Contabilidad"
     public  void tipo4() {
-        al.add("Clientes");
-        al.add("Proveedores");
+        ResourceBundle res = Main.getRes();
+        al.add(res.getString("CLIENTES"));
+        al.add(res.getString("PROVEEDORES"));
         al.add("Plan contable");
     }
     public void borrarLista(){

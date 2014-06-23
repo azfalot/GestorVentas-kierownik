@@ -47,6 +47,10 @@ public final class Main extends javax.swing.JFrame {
 
     static ResourceBundle res = getBundle("Lenguaje.Idioma", new Locale("es"));
 
+    public static ResourceBundle getRes() {
+        return res;
+    }
+
     public Main() {
 
         initComponents();
@@ -498,7 +502,11 @@ public final class Main extends javax.swing.JFrame {
                 switch (posicion) {
                     //Lanzar Productos
                     case 0:
-                        jtpPestañas.addTab(res.getString("PRODUCTOS"), new Productos());
+                try {
+                    jtpPestañas.addTab(res.getString("PRODUCTOS"), new Productos());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                         indice++;
                         jtpPestañas.setSelectedIndex(indice);
                         break;
@@ -584,7 +592,8 @@ public final class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_solotextActionPerformed
 
     private void menuCfgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCfgActionPerformed
-        // TODO add your handling code here:
+        Configuracion cfg = new Configuracion(this, true);
+        cfg.setVisible(true);
     }//GEN-LAST:event_menuCfgActionPerformed
 
     public static void main(String args[]) throws ClassNotFoundException, SQLException {

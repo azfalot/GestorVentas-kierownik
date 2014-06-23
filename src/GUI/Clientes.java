@@ -84,6 +84,9 @@ public class Clientes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/refrescar_1.png"))); // NOI18N
         jButton2.setText("Refrescar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +94,9 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa_2.png"))); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +104,9 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
+        jBnewCliente.setBackground(new java.awt.Color(0, 0, 0));
+        jBnewCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jBnewCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
         jBnewCliente.setText("Nuevo Cliente");
         jBnewCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +150,7 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+                .addComponent(jScrollPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +166,6 @@ public class Clientes extends javax.swing.JPanel {
 
     private void jBnewClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnewClienteActionPerformed
         AltaCliente ac = new AltaCliente(null, true);
-        ac.setSize(450, 350);
         ac.setVisible(true);
     }//GEN-LAST:event_jBnewClienteActionPerformed
 
