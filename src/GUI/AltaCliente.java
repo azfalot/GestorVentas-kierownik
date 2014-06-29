@@ -19,8 +19,6 @@ public final class AltaCliente extends javax.swing.JDialog {
 
     //istancia de Listas
     Listas l = new Listas();
-    //icono Cliente
-    ImageIcon icono = new ImageIcon("imagenes\\cliente.png");
     //Icono de la App
     ImageIcon icon2 = new ImageIcon("imagenes\\icono.png");
     
@@ -31,7 +29,6 @@ public final class AltaCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         // Icono cliente
-        cliente.setIcon(icono);
         //icono app
         this.setIconImage(icon2.getImage());
         //Vaciando los Campos
@@ -78,6 +75,7 @@ public final class AltaCliente extends javax.swing.JDialog {
         aTf5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         cliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -146,6 +144,11 @@ public final class AltaCliente extends javax.swing.JDialog {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 220, 110, 36));
 
+        jLabel8.setText("Datos del Cliente");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,7 +156,7 @@ public final class AltaCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                .addComponent(cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,6 +244,7 @@ public final class AltaCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -64,10 +64,10 @@
                       <Group type="102" attributes="0">
                           <Component id="jcBClientes" min="-2" pref="208" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="306" max="32767" attributes="0"/>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,6 +110,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/add.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="&#xbf;Nuevo Cliente? "/>
             <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir Nuevo Cliente"/>
           </Properties>
           <Events>
@@ -139,8 +140,8 @@
                               <Component id="jtfCantidad" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" pref="52" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -225,6 +226,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/add.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
             <Property name="toolTipText" type="java.lang.String" value="A&#xf1;adir Nuevo Cliente"/>
           </Properties>
           <Events>
@@ -252,7 +254,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/del_1.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Remove"/>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>

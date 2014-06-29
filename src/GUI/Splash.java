@@ -6,8 +6,10 @@
 
 package GUI;
 
+import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.help.HelpSetException;
 
 /**
  *
@@ -34,6 +36,10 @@ public class Splash extends javax.swing.JFrame implements Runnable{
             this.dispose();
             new Main().setVisible(true);
         } catch (InterruptedException ex) {
+            Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HelpSetException ex) {
             Logger.getLogger(Splash.class.getName()).log(Level.SEVERE, null, ex);
         }
         

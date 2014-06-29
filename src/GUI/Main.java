@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,9 @@ package GUI;
 
 import DB.Sqlite;
 import Metodos.Listas;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -14,6 +17,9 @@ import java.util.ResourceBundle;
 import static java.util.ResourceBundle.getBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.ImageIcon;
 
 /*
@@ -51,7 +57,7 @@ public final class Main extends javax.swing.JFrame {
         return res;
     }
 
-    public Main() {
+    public Main() throws MalformedURLException, HelpSetException {
 
         initComponents();
         this.setIconImage(icono.getImage());
@@ -60,6 +66,8 @@ public final class Main extends javax.swing.JFrame {
         listOP = mL.getAl();
         jtpPestañas.setComponentPopupMenu(null);
         misIconos();
+        jHelp();
+
     }
 
     public void misIconos() {
@@ -106,6 +114,30 @@ public final class Main extends javax.swing.JFrame {
         btnVentas.setText(res.getString("VENTAS"));
         cerrarPestaña.setText(res.getString("CERRAR PESTAÑA"));
         cerrarTodas.setText(res.getString("CERRAR TODAS LAS PESTAÑAS"));
+    }
+
+    //Cargar AYUDA
+    public void jHelp() throws MalformedURLException, HelpSetException {
+
+        try {
+            // Carga el fichero de ayuda
+            File fichero = new File("./help/help_set.hs");
+            URL hsURL = fichero.toURI().toURL();
+
+            // Crea el HelpSet y el HelpBroker
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
+            HelpBroker hb = helpset.createHelpBroker();
+
+            // Pone ayuda a item de menu al pulsarlo y a F1 en ventana
+            // principal y secundaria.
+            hb.enableHelpOnButton(menuManual, "indice", helpset);
+            // hb.enableHelpKey(getRootPane(), "ventana_principal", helpset);
+            // hb.enableHelpOnButton(jButton1, "ventana_principal", helpset);
+            // hb.enableHelpOnButton(jButton2, "ventana_secundaria", helpset);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -364,7 +396,11 @@ public final class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_soloIconActionPerformed
 
     private void menuManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManualActionPerformed
-        // TODO add your handling code here:
+        try {
+            jHelp();
+        } catch (MalformedURLException | HelpSetException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuManualActionPerformed
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
@@ -479,18 +515,20 @@ public final class Main extends javax.swing.JFrame {
 
                 switch (posicion) {
                     //Lanzar ventana Compras
-                    case 0:
+                    case 1:
                         jtpPestañas.addTab(res.getString("COMPRAS"), new Compras());
                         indice++;
                         jtpPestañas.setSelectedIndex(indice);
                         break;
                     //Lanzar ventana proveedores
-                    case 1:
-                        jtpPestañas.addTab(res.getString("PROVEEDORES"), new Proveedores());
+                    case 0:
+                        try {
+                            jtpPestañas.addTab(res.getString("PROVEEDORES"), new Proveedores());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         indice++;
                         jtpPestañas.setSelectedIndex(indice);
-                        break;
-                    case 2:
                         break;
                 }
             }
@@ -502,11 +540,11 @@ public final class Main extends javax.swing.JFrame {
                 switch (posicion) {
                     //Lanzar Productos
                     case 0:
-                try {
-                    jtpPestañas.addTab(res.getString("PRODUCTOS"), new Productos());
-                } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                        try {
+                            jtpPestañas.addTab(res.getString("PRODUCTOS"), new Productos());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         indice++;
                         jtpPestañas.setSelectedIndex(indice);
                         break;
@@ -526,10 +564,28 @@ public final class Main extends javax.swing.JFrame {
                 int posicion = jlOpciones.getSelectedIndex();
 
                 switch (posicion) {
+                    //Clientes
                     case 0:
+                        try {
+                            jtpPestañas.addTab(res.getString("CLIENTES"), new Clientes());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
+
                         break;
+                    //Proveedores
                     case 1:
+                        try {
+                            jtpPestañas.addTab(res.getString("PROVEEDORES"), new Proveedores());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        indice++;
+                        jtpPestañas.setSelectedIndex(indice);
                         break;
+                    //Plan Contable
                     case 2:
                         break;
                 }
@@ -547,6 +603,9 @@ public final class Main extends javax.swing.JFrame {
 
             //jtpPestañas.setComponentPopupMenu(null);
             indice--;
+            if (indice == -1) {
+                jtpPestañas.setComponentPopupMenu(null);
+            }
 
         } else if (jtpPestañas.getSelectedIndex() >= 1) {
 
@@ -567,7 +626,6 @@ public final class Main extends javax.swing.JFrame {
 
     private void twistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twistActionPerformed
         // TEXTO E ICONOS
-        //btnVentas.setIcon("");
         misIconos();
         btnAlmacen.setText(res.getString("ALMACEN"));
         btnCompras.setText(res.getString("COMPRAS"));

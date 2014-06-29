@@ -5,8 +5,6 @@
  */
 package Metodos;
 
-
-
 /**
  *
  * @author carlos
@@ -41,5 +39,17 @@ public class Inserts {
         return insert;
 
     }
+    
+    //Proveedor Nuevo
+
+    public String nuevoProveedor(String nombre, String dir, String pais, String email, int telefono) {
+
+        String insert = "INSERT INTO Proveedores (idProveedor,nombre,direccion,pais,email,telefono)"
+                + "VALUES (" + null + ", '" + nombre + "', '" + dir + "', '" + pais + "', '" + email + "', " + telefono + ");";
+        return insert;
+
+    }
+    
+
 
 }

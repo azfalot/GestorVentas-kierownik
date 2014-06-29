@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package GUI;
 
+import Metodos.Deletes;
 import Metodos.Selects;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,38 +20,54 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes extends javax.swing.JPanel {
 
-    Selects c = new  Selects();
+    Selects c = new Selects();
+    Deletes d = new Deletes();
+
     /**
      * Creates new form Clientes
+     *
      * @throws java.sql.SQLException
      */
     public Clientes() throws SQLException {
         initComponents();
         modeloClientes();
+        setListaClientes();
     }
-    
-        public void modeloClientes() throws SQLException {
+
+    public void modeloClientes() throws SQLException {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
         dtm.addColumn("Dni");
         dtm.addColumn("Pais");
         dtm.addColumn("E-mail");
-        jTable1.setModel(dtm);
+        jTableClientes.setModel(dtm);
         ResultSet rs;
         rs = Main.conexion.consulta(c.getRellenarClientes());
 
         while (rs.next()) {
-            
+
             Object[] datos = new Object[4];//Crea un vector para almacenar los valores del ResultSet
             datos[0] = (rs.getString(1));
             datos[1] = (rs.getString(2));
             datos[2] = (rs.getString(3));
             datos[3] = (rs.getString(4));
-            
+
             //añado el modelo a la tabla
             dtm.addRow(datos);
         }
         rs.close();
+    }
+    
+        public void setListaClientes() throws SQLException {
+
+        ResultSet rs;
+        rs = Main.conexion.consulta(c.getNombresDeClientes());
+
+        while (rs.next()) {
+            jCbClientes.addItem(rs.getString(1));
+        }
+        rs.close();
+
     }
 
     /**
@@ -63,15 +80,18 @@ public class Clientes extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableClientes = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jBnewCliente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        nombreBusqueda = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jCbClientes = new javax.swing.JComboBox();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        setBackground(java.awt.Color.gray);
+
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -82,7 +102,9 @@ public class Clientes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableClientes);
+
+        jPanel1.setBackground(java.awt.Color.lightGray);
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -91,16 +113,6 @@ public class Clientes extends javax.swing.JPanel {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa_2.png"))); // NOI18N
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -116,30 +128,65 @@ public class Clientes extends javax.swing.JPanel {
 
         jLabel1.setText("Nombre");
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa_2.png"))); // NOI18N
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setBackground(new java.awt.Color(0, 0, 0));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/del_1.png"))); // NOI18N
+        jButton4.setText("Eliminar Cliente");
+        jButton4.setToolTipText("Sleccion un Cliente de la lista y presiona el boton");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jCbClientes.setToolTipText("Seleccionar un Nombre");
+        jCbClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbClientesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBnewCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(nombreBusqueda)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCbClientes, 0, 93, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBnewCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nombreBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBnewCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1)
+                    .addComponent(jBnewCliente)
+                    .addComponent(jButton4)
+                    .addComponent(jButton2)
+                    .addComponent(jCbClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -148,19 +195,19 @@ public class Clientes extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,39 +219,36 @@ public class Clientes extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Buscaremos por el Nombre del cliente por lo tanto 
         //haremos una consulta y la grabaremos en la lista
-        
-        
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Dni");
-        dtm.addColumn("Pais");
-        dtm.addColumn("E-mail");
-        jTable1.setModel(dtm);
-        ResultSet rs;
-        rs = Main.conexion.consulta(c.clientePorNombre(nombreBusqueda.getText()));
         try {
+            //SELECT POR NOMBRE
+
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("Nombre");
+            dtm.addColumn("Dni");
+            dtm.addColumn("Pais");
+            dtm.addColumn("E-mail");
+            jTableClientes.setModel(dtm);
+            ResultSet rs;
+            rs = Main.conexion.consulta(c.clientePorNombre(jCbClientes.getSelectedItem().toString()));
+
             while (rs.next()) {
-                
+
                 Object[] datos = new Object[4];//Crea un vector para almacenar los valores del ResultSet
                 datos[0] = (rs.getString(1));
                 datos[1] = (rs.getString(2));
                 datos[2] = (rs.getString(3));
                 datos[3] = (rs.getString(4));
-                
+
                 //añado el modelo a la tabla
                 dtm.addRow(datos);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             rs.close();
+
         } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -215,15 +259,45 @@ public class Clientes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //Eliminar seleccionando en la tabla
+        if (jTableClientes.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(jButton1, "Debe seleccionar una fila");
+        } else {
+            int fila = JOptionPane.showConfirmDialog(jButton1, "Esta seguro que desea eliminar");
+            if (JOptionPane.OK_OPTION == fila) {
+                //Probar dato que se recoge
+                int posicion = jTableClientes.getSelectedRow();
+                System.out.println(jTableClientes.getModel().getValueAt(posicion, 1));
+                String id = jTableClientes.getModel().getValueAt(posicion, 1).toString();
+                try {
+
+                    Main.conexion.update(d.borrarCliente(id));
+
+                    //Refrescamos
+                    modeloClientes();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jCbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCbClientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBnewCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox jCbClientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField nombreBusqueda;
+    private javax.swing.JTable jTableClientes;
     // End of variables declaration//GEN-END:variables
 }

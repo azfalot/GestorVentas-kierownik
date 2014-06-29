@@ -7,6 +7,7 @@ package GUI;
 
 import Metodos.Inserts;
 import Metodos.Selects;
+import Metodos.Updates;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public final class AltaPedido extends javax.swing.JDialog {
     Random r = new Random(System.currentTimeMillis());
     Selects c = new Selects();
     Inserts i = new Inserts();
-    Thread t;
-
+    Updates u = new Updates();
+    
     //ArrayList que almacenara los Datos del pedido
     ArrayList<String> al = new ArrayList<>();
 
@@ -47,6 +48,7 @@ public final class AltaPedido extends javax.swing.JDialog {
      * @param modal
      * @throws java.sql.SQLException
      */
+    
     //Comprobante de que hay datos en el jTable
     int index = 0;
 
@@ -108,6 +110,16 @@ public final class AltaPedido extends javax.swing.JDialog {
         return i;
 
     }
+    //get stock Producto con id
+    public int obtenerStockProducto(int id) throws SQLException{
+        ResultSet rs;
+        rs = Main.conexion.consulta(c.stockProductoPorId(id));
+        int a= rs.getInt(1);
+        
+        rs.close();
+        
+        return a;
+    }
 
     //obtener precio de producto con NOMBRE
     public Double obtenerPrecio() throws SQLException {
@@ -133,10 +145,10 @@ public final class AltaPedido extends javax.swing.JDialog {
 
     public void toArray() {
         //Recorrer 
-        for (int i = 0; i < jTableDetallesProducto.getRowCount(); i++){
-            
-            for (int a = 0; a < jTableDetallesProducto.getColumnCount(); a++){
-                
+        for (int i = 0; i < jTableDetallesProducto.getRowCount(); i++) {
+
+            for (int a = 0; a < jTableDetallesProducto.getColumnCount(); a++) {
+
                 al.add(jTableDetallesProducto.getModel().getValueAt(i, a).toString());
             }
         }
@@ -180,6 +192,7 @@ public final class AltaPedido extends javax.swing.JDialog {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
+        jButton3.setText("¿Nuevo Cliente? ");
         jButton3.setToolTipText("Añadir Nuevo Cliente");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,8 +211,8 @@ public final class AltaPedido extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jcBClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(306, Short.MAX_VALUE))
+                        .addComponent(jButton3)))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,6 +250,7 @@ public final class AltaPedido extends javax.swing.JDialog {
 
         jButton4.setBackground(new java.awt.Color(0, 0, 0));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add.png"))); // NOI18N
+        jButton4.setText("Añadir");
         jButton4.setToolTipText("Añadir Nuevo Cliente");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +267,7 @@ public final class AltaPedido extends javax.swing.JDialog {
         jButton5.setBackground(new java.awt.Color(0, 0, 0));
         jButton5.setForeground(new java.awt.Color(255, 0, 0));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/del_1.png"))); // NOI18N
-        jButton5.setText("Remove");
+        jButton5.setText("Eliminar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -278,8 +292,8 @@ public final class AltaPedido extends javax.swing.JDialog {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtfCantidad))
                         .addGap(29, 29, 29)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton5)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -383,22 +397,21 @@ public final class AltaPedido extends javax.swing.JDialog {
                     Main.conexion.update(i.nuevoPedido(idPedido, "CURRENT_DATE", fkCliente, estado));
 
                     //Introducimos detalles
-                    //No funciona como se esperaba
-                    // for (int x = 0; x < jTableDetallesProducto.getModel().getRowCount(); x++) {
-                    //int fkProducto = obtenerIdProducto(jTableDetallesProducto.getModel().getValueAt(x, 0).toString());
-                    
-                    
-                               
-                    
-                    
-                    
                     for (int x = 0; x < jTableDetallesProducto.getModel().getRowCount(); x++) {
-                        
-                    int fkProducto = Integer.valueOf(jTableDetallesProducto.getValueAt(x,0).toString());
-                    System.out.println(fkProducto);
 
-                    //Esto Funciona
-                    Main.conexion.update(i.detallesPedido(idPedido, fkProducto,  Integer.valueOf(jTableDetallesProducto.getValueAt(x,2).toString())));
+                        int fkProducto = Integer.valueOf(jTableDetallesProducto.getValueAt(x, 0).toString());
+                        System.out.println(fkProducto);
+                        int cantidad = Integer.valueOf(jTableDetallesProducto.getValueAt(x, 2).toString());
+                        //Esto Funciona
+                        Main.conexion.update(i.detallesPedido(idPedido, fkProducto, cantidad));
+                        
+                        
+                        ResultSet rs;
+                        rs= Main.conexion.consulta(c.stockProductoPorId(fkProducto));
+                        int stock = rs.getInt(1)-cantidad;
+                        //actualizar datos
+                        Main.conexion.update(u.setNuevoStock(stock,fkProducto ));
+                        
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(AltaPedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -413,6 +426,7 @@ public final class AltaPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
         try {
             int cantidad = Integer.parseInt(jtfCantidad.getText());
             if (cantidad == 0) {
@@ -425,6 +439,14 @@ public final class AltaPedido extends javax.swing.JDialog {
                 //PRODUCTO CANTIDAD PRECIO
                 int idProducto = obtenerIdProducto(jcbProductos.getSelectedItem().toString());
                 String nombre = jcbProductos.getSelectedItem().toString();
+                
+                int stock = obtenerStockProducto(idProducto);
+                System.out.println(stock);
+                if (cantidad>stock){
+                    JOptionPane.showMessageDialog(rootPane, "La cantidad maxima del Producto '"+nombre+ "' en 'Stock' es : "+stock);
+                }else{
+                
+                
                 //Sera igual a lo obtenido por la consulta de 'precio por nombre'
                 Double precio = obtenerPrecio();
                 Double total = cantidad * precio;
@@ -441,8 +463,12 @@ public final class AltaPedido extends javax.swing.JDialog {
 
                 modelo.addRow(fila);
                 jTableDetallesProducto.setModel(modelo);
+                
+                
 
                 index++;//SOLO SI SE HA AÑADIDO ALGUNA COMPRA CORRECTAMENTE
+                
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(AltaPedido.class.getName()).log(Level.SEVERE, null, ex);

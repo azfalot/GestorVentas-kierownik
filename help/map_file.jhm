@@ -1,0 +1,5 @@
+<map version="1.0">
+   <mapID target="indice" url="html/indice.html" />
+   <mapID target="menu" url="html/menu.html" />
+   <mapID target="listas" url="html/listas.html" />
+</map>

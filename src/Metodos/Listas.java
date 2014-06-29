@@ -34,7 +34,7 @@ public class Listas {
     //Rellenar Lista relacionada con las "Compras"
     public  void tipo2() {
         ResourceBundle res = Main.getRes();
-        al.add(res.getString("COMPRAS"));
+        //al.add(res.getString("COMPRAS"));
         al.add(res.getString("PROVEEDORES"));
     }
 
