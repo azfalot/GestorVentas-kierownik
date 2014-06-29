@@ -114,6 +114,16 @@ public class Selects {
         return consulta;
 
     }
+    
+    
+    public String getProductoCantidadDePedido(int ref) {
+
+        String consulta = "SELECT fk_producto, cantidad FROM detallepedidos WHERE fk_pedido="+ref+";";
+
+        return consulta;
+
+    }
+    
 
     public String getRellenarProductos() {
         return rellenarProductos;

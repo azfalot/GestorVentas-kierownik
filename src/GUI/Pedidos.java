@@ -16,13 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Pedidos extends javax.swing.JPanel {
-    
+
     //MIRAR TABULACION EN JAVA 
-    
     Deletes d = new Deletes();
 
     Selects c = new Selects();
-    
+
     Updates u = new Updates();
 
     public Pedidos() throws SQLException {
@@ -271,41 +270,55 @@ public class Pedidos extends javax.swing.JPanel {
     }//GEN-LAST:event_jCbClientesActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
         //Eliminar seleccionando en la tabla
-        if(jTable1.getSelectedRow()==-1){
+        if (jTable1.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(jButton1, "Debe seleccionar una fila");
-        }else{
+        } else {
             int fila = JOptionPane.showConfirmDialog(jButton1, "Esta seguro que desea eliminar");
-            if(JOptionPane.OK_OPTION == fila){
+            if (JOptionPane.OK_OPTION == fila) {
                 //Probar dato que se recoge;
                 int posicion = jTable1.getSelectedRow();
                 System.out.println(jTable1.getValueAt(posicion, 0));
-                int id =Integer.parseInt(jTable1.getValueAt(posicion, 0).toString());
+                int id = Integer.parseInt(jTable1.getValueAt(posicion, 0).toString());
                 try {
-                    
-                    Main.conexion.update(d.deleteLineaPedidos(id));
-                    
-                    
-                    
+
+
                     //obteniendo datos
-                    
-                    //Actualizar stock
-                    
-                    Main.conexion.update(u.setNuevoStock(id, id));
-                    
+                    ResultSet rs;
+                    rs = Main.conexion.consulta(c.getProductoCantidadDePedido(id));
+                    System.out.println("Comprobante 1");
+                    while (rs.next()) {
+                        Object[] datos = new Object[2];
+                        //fkproducto
+                        datos[0] = (rs.getInt(1));
+                        //cantidad
+                        datos[1] = (rs.getInt(2));
+
+                        ResultSet rs2;
+                        rs2 = Main.conexion.consulta(c.stockProductoPorId(Integer.valueOf(datos[0].toString())));
+                        System.out.println("El stock es : "+rs2);
+                        Object[] datos2 = new Object[1];
+                        //stock para este producto
+                        datos2[0] = rs2.getInt(1);
+                        
+                        int stock = Integer.valueOf(datos2[0].toString()) + Integer.valueOf(datos[1].toString());
+                        
+                        //Modifico los datos con el stock y el id del Producto
+                        Main.conexion.update(u.setNuevoStock(stock,Integer.valueOf(datos[0].toString())));
+                    }
+
+                    Main.conexion.update(d.deleteLineaPedidos(id));
                     //Refrescamos
                     modelo();
                 } catch (SQLException ex) {
                     Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-                
-            
+
         }
-            
-        
-    
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
